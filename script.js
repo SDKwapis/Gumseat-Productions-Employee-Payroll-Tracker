@@ -1,29 +1,43 @@
 // Get a reference to the #add-employees-btn element
 const addEmployeesBtn = document.querySelector('#add-employees-btn')
 
+let firstName = "";
+let lastName = "";
+let salary = "";
+
 let employeesArray = [];
 
-const collectEmployees= function() {
-    employeesArray = [];
-    // Prompt for each employee's data
+const collectEmployees = function() {
     while (true) {
       let firstName = window.prompt(`Enter first name:`);
       if (firstName === null) break; // If user cancels, exit the loop
       let lastName = window.prompt(`Enter last name:`);
-      let salary = parseFloat(window.prompt(`Enter salary:`));
+      if (lastName === null) break; // If user cancels, exit the loop
+      let salary = window.prompt(`Enter salary:`);
       if (isNaN(salary)) { // Validate salary input
         alert("Salary must be a number. Please enter a valid salary.");
         continue; // Restart the loop
       }
-      employeesArray.push({ // Add employee to the array
-        firstName: firstName,
-        lastName: lastName,
-        salary: salary
-      });
-    }
-    return;
+      // Add employee to the array
+      employeesArray.push(firstName, lastName, salary)
+
+      let addAnother = window.confirm(`Add another employee?`);
+      if (!addAnother){ // If user chooses not to add another employee, exit the loop 
+        break;
+      };
   }
-console.log()
+}
+console.log(employeesArray);
+// Add event listener to the button
+addEmployeesBtn.addEventListener('click', function() {
+  // Call the collectEmployees function when the button is clicked
+  // const employeesArray = collectEmployees();
+  // console.log(employeesArray);
+});
+
+
+
+
 
 
 // Display the average salary

@@ -1,26 +1,31 @@
 // Get a reference to the #add-employees-btn element
 const addEmployeesBtn = document.querySelector('#add-employees-btn')
 
-let firstName = ""
-let lastName = ""
-let salary = ""
+let logFirstName = ""
+let logLastName = ""
+let logSalary = ""
 
 let employeesArray = [];
 
 const collectEmployees = function(){ 
     while (true) {
-      let firstName = window.prompt(`Enter first name:`);
-      if (firstName === null) break; // If user cancels, exit the loop
-      let lastName = window.prompt(`Enter last name:`);
-      if (lastName === null) break; // If user cancels, exit the loop
-      let salary = window.prompt(`Enter salary:`);
-      if (isNaN(salary)) { // Validate salary input
+      let logFirstName = window.prompt(`Enter first name:`);
+      if (logFirstName === null) break; // If user cancels, exit the loop
+      let logLastName = window.prompt(`Enter last name:`);
+      if (logLastName === null) break; // If user cancels, exit the loop
+      let logSalary = window.prompt(`Enter salary:`);
+      if (isNaN(logSalary)) { // Validate salary input
         alert("Salary must be a number. Please enter a valid salary.");
         continue; // Restart the loop
       }
       // Add employee to the array
-      employeesArray.push({firstName:firstName}, {lastName: lastName}, {salary: salary})
-
+      let employee = {
+        firstName: logFirstName,
+        lastName: logLastName,
+        salary: logSalary
+      }
+      employeesArray.push(employee)
+      
       let addAnother = window.confirm(`Add another employee?`);
       if (!addAnother){ // If user chooses not to add another employee, exit the loop 
         break;
@@ -28,23 +33,41 @@ const collectEmployees = function(){
         continue; // Restart the loop
       } 
     }
- }
+    return employeesArray; 
+  }
+ 
+
+// Display the average salary
+const displayAverageSalary = function(employeesArray) {
+  const avgSal = []
+  for (let i = 0; i < employeesArray.length; i++) {    
+    const cashAvg = parseFloat(employeesArray[i].salary);
+    avgSal.push(cashAvg);
+  }
+let sum = 0;
+for(let i = 0; i < avgSal.length; i++){
+  sum += avgSal[i];
+}
+const avg = sum/avgSal.length
+console.log(`The average employee salary is: ${avg}`)
+}
+
+
+// Select a random employee
+const getRandomEmployee = function(employeesArray) {
+    // Generate a random index within the range of the array length
+    const randomIndex = Math.floor(Math.random() * employeesArray.length);
+    // Retrieve the randomly selected employee
+    const randomEmployee = employeesArray[randomIndex];
+    // Log the randomly selected employee to the console
+    console.log("Randomly selected employee:", randomEmployee);
+    // Return the randomly selected employee
+    return randomEmployee;
+}
 
   
 
 
-
-
-// Display the average salary
-const displayAverageSalary = function(employeesArray) {
-  // TODO: Calculate and display the average salary
-
-}
-
-// Select a random employee
-const getRandomEmployee = function(employeesArray) {
-  // TODO: Select and display a random employee
-}
 
 /*
   ====================
